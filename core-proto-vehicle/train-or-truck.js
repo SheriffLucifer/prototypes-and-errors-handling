@@ -1,34 +1,49 @@
 // Функции-конструкторы Train и Truck имеют схожие свойства и поведение.
 // Перепишите их так, чтобы избавиться от дублирования одинаковых свойств и методов.
+
 function Vehicle(driver) {
-  // Код тут.
+  this.driver = driver;
+  this.speed = 0;
 }
+
+Vehicle.prototype.drive = function (kmh) {
+  this.speed = kmh;
+  return `${this.driver} driving at ${this.speed} kilometers per hour`;
+};
+
+Vehicle.prototype.stop = function () {
+  this.speed = 0;
+  return `${this.driver} has stopped`;
+};
+
 function Train(driver) {
-  // Код тут.
-  this.drive = function (kmh) {
-    // Код тут.
-  };
-  this.stop = function () {
-    // Код тут.
-  };
+  Vehicle.call(this, driver);
 }
+
+Train.prototype = Object.create(Vehicle.prototype);
+Train.prototype.constructor = Train;
 
 function Truck(driver) {
-  // Код тут.
-  this.drive = function (kmh) {
-    // Код тут.
-  };
-  this.stop = function () {
-    // Код тут.
-  };
-  this.loadCargo = function (cargo) {
-    // Код тут.
-  };
+  Vehicle.call(this, driver);
+  this.cargo = [];
 }
 
-Truck.prototype.unloadCargo = function () {
-  // Код тут.
+Truck.prototype = Object.create(Vehicle.prototype);
+Truck.prototype.constructor = Truck;
+
+Truck.prototype.loadCargo = function (cargo) {
+  this.cargo.push(cargo);
+  return this.cargo;
 };
+
+Truck.prototype.unloadCargo = function () {
+  if (this.cargo.length > 0) {
+    return this.cargo.pop();
+  } else {
+    return null;
+  }
+};
+
 // экспорт Vehicle, Train, Truc в файл с тестами
 module.exports = { Vehicle, Train, Truck };
 
