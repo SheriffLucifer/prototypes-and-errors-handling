@@ -40,12 +40,7 @@ function DisneyCartoon(
 }
 
 DisneyCartoon.prototype = Object.create(Cartoon.prototype);
-
-Object.defineProperty(DisneyCartoon.prototype, "constructor", {
-  value: DisneyCartoon,
-  enumerable: false,
-  writable: true,
-});
+DisneyCartoon.prototype.constructor = DisneyCartoon;
 
 /**
  * Мульт студии DreamWorks.
@@ -61,11 +56,6 @@ function DreamWorksCartoon(title, year, beginning) {
 }
 
 DreamWorksCartoon.prototype = Object.create(Cartoon.prototype);
-
-Object.defineProperty(DreamWorksCartoon.prototype, "constructor", {
-  value: DreamWorksCartoon,
-  enumerable: false,
-  writable: true,
-});
+DreamWorksCartoon.prototype.constructor = DreamWorksCartoon;
 
 module.exports = { Cartoon, DisneyCartoon, DreamWorksCartoon };
