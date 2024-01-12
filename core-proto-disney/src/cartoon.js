@@ -11,12 +11,10 @@ function Cartoon(title, year, forChildren = true, beginning) {
   this.year = year;
   this.forChildren = forChildren;
   this.beginning = beginning;
-  this.studio = "";
-  this.studioLogo = "";
 }
 
 Cartoon.prototype.getDescription = function () {
-  return `Description of cartoon: ${this.title}\n${this.year}\n${this.forChildren}\n${this.beginning}`;
+  return this.title;
 };
 
 Cartoon.prototype.play = function () {
@@ -42,7 +40,12 @@ function DisneyCartoon(
 }
 
 DisneyCartoon.prototype = Object.create(Cartoon.prototype);
-DisneyCartoon.prototype.constructor = DisneyCartoon;
+
+Object.defineProperty(DisneyCartoon.prototype, "constructor", {
+  value: DisneyCartoon,
+  enumerable: false,
+  writable: true,
+});
 
 /**
  * Мульт студии DreamWorks.
@@ -58,6 +61,11 @@ function DreamWorksCartoon(title, year, beginning) {
 }
 
 DreamWorksCartoon.prototype = Object.create(Cartoon.prototype);
-DreamWorksCartoon.prototype.constructor = DreamWorksCartoon;
+
+Object.defineProperty(DreamWorksCartoon.prototype, "constructor", {
+  value: DreamWorksCartoon,
+  enumerable: false,
+  writable: true,
+});
 
 module.exports = { Cartoon, DisneyCartoon, DreamWorksCartoon };

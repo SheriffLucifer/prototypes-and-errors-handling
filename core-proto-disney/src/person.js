@@ -5,19 +5,16 @@
 
 function Person(name, initialWatchedMovies = []) {
   this.name = name;
-  this.watchedMovies = Array.isArray(initialWatchedMovies)
-    ? initialWatchedMovies
-    : [initialWatchedMovies];
+  this.watchedMovies = initialWatchedMovies;
 }
 
 Person.prototype.watchMovie = function (movie) {
   try {
-    if (this.watchedMovies.includes(movie)) {
-      return `${this.name} has already watched ${movie.title}.`;
+    if (this.watchedMovies.some(({ title }) => title === movie.title)) {
+      return movie.play();
     } else {
-      movie.play();
       this.watchedMovies.push(movie);
-      return `${this.name} is now watching ${movie.title}.`;
+      return `${this.name} is now watching ${movie.title}. ${movie.play()}`;
     }
   } catch (error) {
     return `${this.name} encountered an error while watching ${movie.title}.`;
